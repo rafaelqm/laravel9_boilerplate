@@ -1,12 +1,10 @@
 {
-    "name": "studiobravo/portaldeexames",
+    "name": "rafaelqm/laravel9_boilerplate",
     "type": "project",
-    "description": "Portal de Exames Zix",
+    "description": "Laravel 9 Boilerplate",
     "keywords": [
-        "Portal",
-        "Exames",
         "PHP",
-        "laravel8",
+        "laravel9",
         "PHP8",
         "Swoole"
     ],
