@@ -1,0 +1,37 @@
+@extends('layouts.app')
+
+@section('content')
+    <ol class="row breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{!! route('home') !!}">Home</a>
+        </li>
+        <li class="breadcrumb-item">$MODEL_NAME_PLURAL_HUMAN$</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+             @include('flash::message')
+             <div class="row">
+                 <div class="col-lg-12">
+                     <div class="card">
+                         <div class="card-header">
+                             <i class="fa fa-circle"></i>
+                             $MODEL_NAME_PLURAL_HUMAN$
+                             @permission('$MODEL_NAME_PLURAL_CAMEL$.create')
+                             <a class="btn btn-primary btn-sm float-right" href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create') }}">
+                                <i class="fa fa-plus"></i> {{ __('crud.add_new') }}
+                             </a>
+                             @endpermission
+                         </div>
+                         <div class="card-body">
+                             @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.table')
+                              <div class="pull-right mr-3">
+                                $PAGINATE$
+                              </div>
+                         </div>
+                     </div>
+                  </div>
+             </div>
+         </div>
+    </div>
+@endsection
+

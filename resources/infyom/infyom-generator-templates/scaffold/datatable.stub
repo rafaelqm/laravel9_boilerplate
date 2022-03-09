@@ -1,0 +1,112 @@
+<?php
+
+namespace $NAMESPACE_DATATABLES$;
+
+use $NAMESPACE_MODEL$\$MODEL_NAME$;
+use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Html\Button;
+use Yajra\DataTables\Html\Column;
+
+class $MODEL_NAME$DataTable extends DataTable
+{
+    /**
+     * Build DataTable class.
+     *
+     * @param mixed $query Results from query() method.
+     * @return \Yajra\DataTables\DataTableAbstract
+     */
+    public function dataTable($query)
+    {
+        $dataTable = new EloquentDataTable($query);
+
+        return $dataTable->addColumn('action', '$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.datatables_actions')
+            ->filterColumn(
+                'created_at',
+                function ($query, $keyword) {
+                    $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y %H:%i') like ?", ["%$keyword%"]);
+                }
+            )
+            ->editColumn(
+                'created_at',
+                function ($obj) {
+                    return $obj->created_at->format('d/m/Y H:i');
+                }
+            );
+    }
+
+    /**
+     * Get query source of dataTable.
+     *
+     * @param \App\Models\$MODEL_NAME$ $model
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function query($MODEL_NAME$ $model)
+    {
+        return $model->newQuery();
+    }
+
+    /**
+     * Optional method if you want to use html builder.
+     *
+     * @return \Yajra\DataTables\Html\Builder
+     */
+    public function html()
+    {
+        return $this->builder()
+            ->setTableId('dataTableBuilder')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->dom('Bfrltip')
+            ->stateSave(true)
+            ->orderBy(0, 'desc')
+            ->responsive(true)
+            ->language(
+                asset("vendor/datatables/Portuguese-Brasil.json")
+            )
+            ->buttons(
+                Button::make(['extend' => 'export', 'className' => 'btn btn-sm no-corner']),
+                Button::make(['extend' => 'print', 'className' => 'btn btn-sm no-corner']),
+                Button::make(['extend' => 'reset', 'className' => 'btn btn-sm no-corner']),
+                Button::make(['extend' => 'reload', 'className' => 'btn btn-sm no-corner']),
+                Button::make([
+                   'extend' => 'colvis',
+                   'text' => '<i data-toggle="tooltip" title="Colunas" class="fas fa-columns"></i>',
+                   'className' => 'btn btn-sm no-corner'
+                ])
+            )
+            ->initComplete(
+                "
+                function() { multipleSearch.call(this) }
+                "
+            );
+    }
+
+    /**
+     * Get columns.
+     *
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            $DATATABLE_COLUMNS$,
+             Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->title('Ações')
+                ->width(90)
+                ->addClass('text-center'),
+        ];
+    }
+
+    /**
+     * Get filename for export.
+     *
+     * @return string
+     */
+    protected function filename()
+    {
+        return '$MODEL_NAME_PLURAL_SNAKE$_datatable_' . time();
+    }
+}

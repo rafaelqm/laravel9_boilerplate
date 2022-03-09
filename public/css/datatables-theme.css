@@ -1,0 +1,49 @@
+.dt-buttons {
+    float: left;
+}
+
+.dataTables_filter {
+    margin-left: 10px;
+    float: left;
+}
+
+.dataTables_filter input {
+    margin-left: 8px;
+}
+
+.dataTables_length span {
+    display: none;
+}
+
+.paginate_button a {
+    padding: 5px 10px;
+    color: #555;
+}
+
+.paginate_button a:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(16, 68, 150, 0.25);
+}
+
+.paginate_button.active a {
+    background: #104496 !important;
+    color: white;
+    border: none;
+}
+
+.paginate_button:hover:not(.active) a,
+.pagination .paginate_button:first-child a:hover,
+.pagination .paginate_button:last-child a:hover {
+    background: initial;
+    color: #104496 !important;
+}
+
+.dataTables_info {
+    float: left;
+    color: #555;
+}
+
+.dataTables_paginate.paging_simple_numbers {
+    float: right;
+    padding-top: .4em;
+}

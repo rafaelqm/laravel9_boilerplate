@@ -1,0 +1,157 @@
+/*
+
+// - PERMISSIONS - CUT TO Save to file database/seeders/$MODEL_NAME$PermissionsTableSeeder.php
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Permission;
+use App\Models\Role;
+use Illuminate\Database\Seeder;
+
+class $MODEL_NAME$PermissionsTableSeeder extends Seeder
+{
+    public function run()
+    {
+        Permission::where('slug', 'LIKE','$MODEL_NAME_PLURAL_CAMEL$.%')->forceDelete();
+
+        $PermissionItems = [
+            [
+                'name'        => 'Visualizar $MODEL_NAME_PLURAL_HUMAN$',
+                'slug'        => '$MODEL_NAME_PLURAL_CAMEL$.view',
+                'description' => 'Visualizar $MODEL_NAME_PLURAL_HUMAN$',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Criar $MODEL_NAME_PLURAL_HUMAN$',
+                'slug'        => '$MODEL_NAME_PLURAL_CAMEL$.create',
+                'description' => 'Criar $MODEL_NAME_PLURAL_HUMAN$',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Editar $MODEL_NAME_PLURAL_HUMAN$',
+                'slug'        => '$MODEL_NAME_PLURAL_CAMEL$.edit',
+                'description' => 'Editar $MODEL_NAME_PLURAL_HUMAN$',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Remover $MODEL_NAME_PLURAL_HUMAN$',
+                'slug'        => '$MODEL_NAME_PLURAL_CAMEL$.delete',
+                'description' => 'Remover $MODEL_NAME_PLURAL_HUMAN$',
+                'model'       => 'Permission',
+            ],
+        ];
+
+
+        foreach ($PermissionItems as $PermissionItem) {
+            $newPermissionItem = Permission::where('slug', '=', $PermissionItem['slug'])->first();
+            if ($newPermissionItem === null) {
+                Permission::create(
+                    [
+                        'name'          => $PermissionItem['name'],
+                        'slug'          => $PermissionItem['slug'],
+                        'description'   => $PermissionItem['description'],
+                        'model'         => $PermissionItem['model'],
+                    ]
+                );
+            }
+        }
+        $permissions_$MODEL_NAME_PLURAL_SNAKE$ = Permission::where('slug', 'LIKE','$MODEL_NAME_PLURAL_CAMEL$.%')->get();
+        $roleAdmin = Role::where('slug', '=', Role::ADMIN)->first();
+        // Add to admin role
+        foreach ($permissions_$MODEL_NAME_PLURAL_SNAKE$ as $permission) {
+            $permission_role = $roleAdmin->permissions()->where('permission_id', $permission->id)->first();
+            if (!$permission_role) {
+                $roleAdmin->attachPermission($permission);
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------
+
+<?php
+// use the follow name to save in the folder routes/web/ $MODEL_NAME_PLURAL_SNAKE$.routes.php
+
+use $NAMESPACE_CONTROLLER$\$MODEL_NAME$Controller;
+
+$router->group(
+    [
+        'prefix' => '$MODEL_NAME_PLURAL_SNAKE$',
+        'middleware' => 'permission:$MODEL_NAME_PLURAL_CAMEL$.view',
+    ],
+    function () use ($router) {
+        $router->get('', [
+            $MODEL_NAME$Controller::class, 'index'
+        ])->name('$MODEL_NAME_PLURAL_CAMEL$.index');
+
+        $router->post(
+            '',
+            [
+                $MODEL_NAME$Controller::class,
+                'store',
+            ]
+        )
+            ->name('$MODEL_NAME_PLURAL_CAMEL$.store')
+            ->middleware('permission:$MODEL_NAME_PLURAL_CAMEL$.create');
+        $router->get(
+            '/create',
+            [
+                $MODEL_NAME$Controller::class,
+                'create'
+            ]
+        )
+            ->name('$MODEL_NAME_PLURAL_CAMEL$.create')
+            ->middleware('permission:$MODEL_NAME_PLURAL_CAMEL$.create');
+        $router->put(
+            '/{roles}',
+            [
+                $MODEL_NAME$Controller::class,
+                'update'
+            ]
+        )
+            ->name('$MODEL_NAME_PLURAL_CAMEL$.update')
+            ->middleware('permission:$MODEL_NAME_PLURAL_CAMEL$.edit');
+        $router->patch(
+            '/{roles}',
+            [
+                    $MODEL_NAME$Controller::class,
+                    'update'
+                ]
+            )
+                ->middleware('permission:$MODEL_NAME_PLURAL_CAMEL$.edit');
+        $router->delete(
+            '/{roles}',
+            [
+                $MODEL_NAME$Controller::class,
+                'destroy'
+            ]
+        )
+            ->name('$MODEL_NAME_PLURAL_CAMEL$.destroy')
+            ->middleware('permission:$MODEL_NAME_PLURAL_CAMEL$.delete');
+        $router->get(
+            '/{roles}',
+            [
+                $MODEL_NAME$Controller::class,
+                'show'
+            ]
+        )
+            ->name('$MODEL_NAME_PLURAL_CAMEL$.show');
+        $router->get(
+            '/{roles}/edit',
+            [
+                $MODEL_NAME$Controller::class,
+                'edit'
+            ]
+        )
+            ->name('$MODEL_NAME_PLURAL_CAMEL$.edit')
+            ->middleware('permission:$MODEL_NAME_PLURAL_CAMEL$.edit');
+    }
+);
+/*
+
+require 'web/$MODEL_NAME_PLURAL_SNAKE$.routes.php';
+
+*/

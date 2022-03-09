@@ -1,0 +1,3 @@
+$FIELDS$
+
+@include('layouts.submit-buttons', ['back_route' => route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index')])

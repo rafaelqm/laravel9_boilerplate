@@ -1,0 +1,21 @@
+<div class='btn-group'>
+    <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show', $$PRIMARY_KEY_NAME$) }}" title="Exibir" class='btn btn-sm btn-outline-primary'>
+       <i class="fa fa-eye"></i>
+    </a>
+    @permission('$MODEL_NAME_PLURAL_CAMEL$.edit')
+
+        <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit', $$PRIMARY_KEY_NAME$) }}" title="Editar" class='btn btn-sm btn-outline-warning'>
+           <i class="fa fa-edit"></i>
+        </a>
+    @endpermission
+    @permission('$MODEL_NAME_PLURAL_CAMEL$.delete')
+            {!! Form::button('<i class="fa fa-trash"></i>', [
+                'type' => 'button',
+                'title' => 'Remover',
+                'class' => 'btn btn-sm btn-outline-danger',
+                'onclick' => "askDelete(".$id.", '".
+                    route('$MODEL_NAME_PLURAL_CAMEL$.destroy', [$id]) .
+                "')"
+            ]) !!}
+    @endpermission
+</div>
