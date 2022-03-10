@@ -22,14 +22,7 @@
         {!! Form::label('email_verified_at', 'E-Mail Verificado em:') !!}
         <p class="form-control">{!! $user->email_verified_at !!}</p>
     </div>
-    <div class="form-group col-sm-12">
-        {!! Form::label('created_at', 'Usuários:') !!}
-        <p class="form-control">
-            @foreach($user->userPeople as $person)
-                <span class="badge bg-secondary">{{ $person->name }} - {{ $person->cpf_cnpj }}</span>
-            @endforeach
-        </p>
-    </div>
+
     <!-- Created At Field -->
     <div class="form-group col-sm-6">
         {!! Form::label('created_at', 'Criado em:') !!}
