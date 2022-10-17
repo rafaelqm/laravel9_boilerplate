@@ -42,19 +42,10 @@ class LoginController extends Controller
     protected function attemptLogin(Request $request): bool
     {
         $credentials = $this->credentials($request);
-        $login_succeeded = $this->guard()->attempt(
+        return $this->guard()->attempt(
             $credentials,
             $request->filled('remember')
         );
-        if (!$login_succeeded) {
-            $credentials['username'] = $credentials['email'];
-            unset($credentials['email']);
-            $login_succeeded = $this->guard()->attempt(
-                $credentials,
-                $request->filled('remember')
-            );
-        }
-        return $login_succeeded;
     }
 
     /**

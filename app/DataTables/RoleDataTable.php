@@ -6,8 +6,9 @@ use App\Models\Role;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Services\DataTable;
 
-class RoleDataTable extends CustomDatatable
+class RoleDataTable extends DataTable
 {
     //    protected $fastExcel = true; // Exportar usando Spout/FastExcel
     //    protected $fastExcelCallback = false; // Caso queira mais rápido ainda, ativar esta opção.
@@ -25,7 +26,7 @@ class RoleDataTable extends CustomDatatable
             ->editColumn(
                 'active',
                 function ($obj) {
-                    if (request()->get('action') != 'csv' && request()->get('action') != 'excel') {
+                    if (request()->get('action') !== 'csv' && request()->get('action') !== 'excel') {
                         return visualYesNo($obj->active);
                     }
                     return $obj->active ? 'Ativo' : 'Inativo';
@@ -89,10 +90,10 @@ class RoleDataTable extends CustomDatatable
                 asset("vendor/datatables/Portuguese-Brasil.json")
             )
             ->buttons(
-                Button::make(['extend' => 'export', 'className' => 'btn btn-sm no-corner']),
-                Button::make(['extend' => 'print', 'className' => 'btn btn-sm no-corner']),
-                Button::make(['extend' => 'reset', 'className' => 'btn btn-sm no-corner']),
-                Button::make(['extend' => 'reload', 'className' => 'btn btn-sm no-corner'])
+                Button::make(['extend' => 'export', 'className' => DEFAULT_BUTTON]),
+                Button::make(['extend' => 'print', 'className' => DEFAULT_BUTTON]),
+                Button::make(['extend' => 'reset', 'className' => DEFAULT_BUTTON]),
+                Button::make(['extend' => 'reload', 'className' => DEFAULT_BUTTON])
             )
             ->initComplete(
                 "
@@ -120,11 +121,6 @@ class RoleDataTable extends CustomDatatable
         return json_encode($array);
     }
 
-    /**
-     * Get columns.
-     *
-     * @return array
-     */
     protected function getColumns()
     {
         return [
@@ -174,7 +170,7 @@ class RoleDataTable extends CustomDatatable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'roles_' . time();
     }

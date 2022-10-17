@@ -6,12 +6,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends CustomDatatable
+class UserDataTable extends DataTable
 {
-    protected $fastExcel = true;
-//    protected $fastExcelCallback = false; // Caso queira mais rápido ainda, ativar esta opção.
-
     /**
      * Build DataTable class.
      *
@@ -119,25 +117,25 @@ class UserDataTable extends CustomDatatable
                 Button::make(
                     [
                         'extend' => 'export',
-                        'className' => 'btn btn-sm no-corner'
+                        'className' => DEFAULT_BUTTON
                     ]
                 ),
                 Button::make(
                     [
                         'extend' => 'print',
-                        'className' => 'btn btn-sm no-corner'
+                        'className' => DEFAULT_BUTTON
                     ]
                 ),
                 Button::make(
                     [
                         'extend' => 'reset',
-                        'className' => 'btn btn-sm no-corner'
+                        'className' => DEFAULT_BUTTON
                     ]
                 ),
                 Button::make(
                     [
                         'extend' => 'reload',
-                        'className' => 'btn btn-sm no-corner'
+                        'className' => DEFAULT_BUTTON
                     ]
                 ),
                 Button::make(
@@ -178,8 +176,6 @@ class UserDataTable extends CustomDatatable
                 ->addClass('text-right'),
             Column::make('name')
                 ->title('Nome'),
-            Column::make('username')
-                ->title('Nome de Usuário'),
             Column::make('email')
                 ->title('E-Mail'),
             Column::make('role_names')
@@ -204,8 +200,8 @@ class UserDataTable extends CustomDatatable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
-        return 'User_' . date('YmdHis');
+        return 'Users_' . date('YmdHis');
     }
 }

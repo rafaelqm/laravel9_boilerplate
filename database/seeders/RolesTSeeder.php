@@ -29,16 +29,16 @@ class RolesTSeeder extends Seeder
             ],
             [
                 'id' => Role::GERENTE_ID,
-                'name' => 'Recepcionista',
+                'name' => 'Usuário padrão',
                 'slug' => Role::GERENTE,
-                'description' => 'Recepcionista da Unidade de Saúde',
+                'description' => 'Todas as permissões exceto editar usuários',
                 'level' => 2,
             ],
             [
                 'id' => Role::VISITANTE_ID,
-                'name' => 'Paciente',
+                'name' => 'Visitante',
                 'slug' => Role::VISITANTE,
-                'description' => 'Paciente',
+                'description' => 'Visitante',
                 'level' => 0,
             ],
         ];

@@ -15,8 +15,8 @@
         "doctrine/dbal": "~2.3",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "infyomlabs/adminlte-templates": "9.x-dev",
-        "infyomlabs/laravel-generator": "9.x-dev",
+        "infyomlabs/adminlte-templates": "4.0.2",
+        "infyomlabs/laravel-generator": "4.2.2",
         "jeremykenedy/laravel-roles": "^8.1.0",
         "kennedytedesco/validation": "dev-l9-support",
         "ladumor/one-signal": "^0.3.4",
@@ -26,12 +26,12 @@
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
         "league/flysystem-aws-s3-v3": "~3.0.6",
-        "rap2hpoutre/fast-excel": "^3.0",
+        "rap2hpoutre/fast-excel": "^4.1",
         "rap2hpoutre/laravel-log-viewer": "^2.0",
         "spatie/laravel-activitylog": "^4.0",
-        "yajra/laravel-datatables-buttons": "^4.0",
-        "yajra/laravel-datatables-html": "^4.0",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-buttons": "^9.0.10",
+        "yajra/laravel-datatables-html": "^9.3.2",
+        "yajra/laravel-datatables-oracle": "~10.1.3"
     },
     "repositories": [
         {
@@ -64,7 +64,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files" : [
-            "resources/helpers.php"
+            "resources/helpers.php",
+            "resources/constants.php"
         ]
     },
     "autoload-dev": {
