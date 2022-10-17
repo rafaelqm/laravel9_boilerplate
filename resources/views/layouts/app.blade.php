@@ -85,7 +85,7 @@
 <!-- Main Footer -->
     <footer class="main-footer">
         <div class="float-right d-none d-sm-block" title="19/01/2022">
-            <strong>Versão</strong> {{ env('APP_VERSION') }}1.0.0
+            <strong>Versão</strong> {{ env('APP_VERSION') }}
         </div>
         <strong>
             <a href="https://www.somoszix.com.br" title="Criado por studioBRAVO! Sistemas Web">{{ env('APP_NAME') }}</a>
